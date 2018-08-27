@@ -11,6 +11,9 @@ Spree::Core::Engine.routes.draw do
         get :add_products
         patch :products
       end
+      collection do
+        get :update_positions
+      end
     end
     resources :products do
       member do

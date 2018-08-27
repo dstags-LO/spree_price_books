@@ -87,35 +87,52 @@
       <% end %>
     </div>
   </div>
+</div>
 
-  <div class='row'>
-    <div class='alpha six columns'>
-      <h5><%= Spree::PriceBook.model_name.human(count: 2) %></h5>
-      <%= f.field_container :price_books do %>
-        <ul>
-          <%= f.collection_check_boxes :price_book_ids, Spree::PriceBook.all, :id, :name do |b| %>
-            <li>
-              <%= b.label { b.check_box + ' ' + b.text } %>
-            </li>
-            <br/>
-          <% end %>
-        </ul>
-      <% end %>
-      <small><%= Spree.t(:store_price_book_assignment_gotcha) %></small>
-    </div>
-    <div class="omega six columns">
-      <h5><%= Spree.t :price_book_priority %></h5>
-      <% unless @store.new_record? %>
-        <ol class='sortable' data-href="<%= spree.sort_admin_store_price_books_path(@store) %>">
-          <% @store.price_books.reorder('spree_store_price_books.priority ASC').each do |pb| %>
-            <li id='store_price_book_id_<%= pb.id %>'>
-              <span class="ui-icon ui-icon-arrowthick-2-n-s"></span> <%= pb.name %>
-            </li>
-          <% end %>
-        </ol>
-      <% end %>
-      <small><%= Spree.t(:store_price_book_priority_gotcha) %></small>
-    </div>
+<div class='row'>
+  <div class='col-md-6'>
+    <h3><%= Spree::PriceBook.model_name.human(count: 2) %></h3>
+    <hr />
+    <%= f.field_container :price_books do %>
+      <ul>
+        <%= f.collection_check_boxes :price_book_ids, Spree::PriceBook.all, :id, :name do |b| %>
+          <li>
+            <%= b.label { b.check_box + ' ' + b.text } %>
+          </li>
+          <br/>
+        <% end %>
+      </ul>
+    <% end %>
+    <small><%= Spree.t(:store_price_book_assignment_gotcha) %></small>
   </div>
+  <div class="col-md-6">
+    <h5><%= Spree.t :price_book_priority %></h5>
+    <% unless @store.new_record? %>
+      <table class="table sortable" id="listing_price_book" data-hook data-sortable-link="<%= update_positions_admin_price_books_url %>">
+        <thead>
+          <tr data-hook="price_book_header">
+            <th class="no-border"></th>
+            <th>
+              <%= Spree.t(:name) %>
+            </th>
+          </tr>
+        </thead>
 
+        <tbody>
+          <% @store.price_books.reorder('spree_store_price_books.priority ASC').each do |pb| %>
+            <tr id="<%= spree_dom_id pb %>" data-hook="price_book_row">
+              <td class="move-handle text-center">
+                <span class="icon icon-move handle"></span>
+              </td>
+              <td>
+                <%= pb.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><%= Spree.t :price_book_empty %></p>
+    <% end %>
+  </div>
 </div>
