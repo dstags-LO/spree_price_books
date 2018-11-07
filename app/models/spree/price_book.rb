@@ -5,10 +5,10 @@ class Spree::PriceBook < ActiveRecord::Base
   belongs_to :role, class_name: 'Spree::Role'
 
   has_many :prices
+  has_many :variants, through: :prices
   has_many :products, -> { uniq }, through: :variants
   has_many :store_price_books
   has_many :stores, through: :store_price_books
-  has_many :variants, through: :prices
 
   validate :validate_currency_rate
   validate :validate_single_default
