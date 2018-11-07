@@ -20,16 +20,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_core', '~> 3.4.5'
   s.add_dependency 'validates_timeliness', '~> 3.0'
 
-  s.add_development_dependency 'capybara', '~> 2.1'
-  s.add_development_dependency 'coffee-rails'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'factory_girl', '~> 4.4'
-  s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'pg'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'selenium-webdriver'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'timecop'
 end
